@@ -17,11 +17,10 @@ public class Siri {
 
         Scanner sc = new Scanner(System.in);
         TaskManger taskManger = new TaskManger();
-        ConsoleLogger consoleLogger = new ConsoleLogger();
+        ConsoleLogger consoleLogger = new ConsoleLogger(taskManger);
         System.out.print("\n____________________________________________________________\n");
-        ConsoleLogger.PrintGreet();
+        consoleLogger.PrintGreet();
         System.out.print("____________________________________________________________\n");
-        int index = 0;
         boolean Exit = false;
         while (!Exit) {
             String word = sc.nextLine();
@@ -32,14 +31,22 @@ public class Siri {
             if (word.equals("bye")) {
                 Exit = true;
             } else if (word.equals("list")){
-                ConsoleLogger.displayList(taskManger);
-            }else {
-                ConsoleLogger.Echo(word);
-                Task t = new Task(word);
-                taskManger.addTask(t);
+                consoleLogger.displayList();
+            } else {
+                String cmd = word.substring(0, word.indexOf(' '));
+                String index = word.substring(word.indexOf(' ') + 1);
+                if (cmd.equals("mark")) {
+                    consoleLogger.mark(Integer.parseInt(index));
+                } else if (cmd.equals("unmark")) {
+                    consoleLogger.unmark(Integer.parseInt(index));
+                } else {
+                    consoleLogger.Echo(word);
+                    Task t = new Task(word);
+                    taskManger.addTask(t);
+                }
             }
         }
-        ConsoleLogger.PrintExit();
+        consoleLogger.PrintExit();
         System.out.print("____________________________________________________________\n");
 
 
