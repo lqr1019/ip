@@ -1,6 +1,4 @@
 public class EventTask extends Task{
-    private String description;
-    private boolean isDone;
     private String from;
     private String to;
 
@@ -12,10 +10,10 @@ public class EventTask extends Task{
 
     @Override
     public String display() {
-        if (isDone) {
-            return "[E][X] " + description + " (" + from + to +")";
+        if (super.isDone()) {
+            return "[E][X] " + super.getDescription() + " (" + from + to +")";
         } else {
-            return "[E][ ] " + description + " (" + from + to +")";
+            return "[E][ ] " + super.getDescription() + " (" + from + to +")";
         }
     }
 }

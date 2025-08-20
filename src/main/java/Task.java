@@ -27,6 +27,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String display() {
         if (isDone) {
             return "[X] " + description;

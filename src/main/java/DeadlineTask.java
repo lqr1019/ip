@@ -1,6 +1,4 @@
 public class DeadlineTask extends Task{
-    private String description;
-    private boolean isDone;
     private String deadline;
 
     public DeadlineTask(String description, String deadline) {
@@ -10,10 +8,10 @@ public class DeadlineTask extends Task{
 
     @Override
     public String display() {
-        if (isDone) {
-            return "[D][X] " + description + " (" + deadline + ")";
+        if (super.isDone()) {
+            return "[D][X] " + super.getDescription() + " (" + deadline + ")";
         } else {
-            return "[D][ ] " + description + " (" + deadline + ")";
+            return "[D][ ] " + super.getDescription() + " (" + deadline + ")";
         }
     }
 }

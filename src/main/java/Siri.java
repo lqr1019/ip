@@ -26,9 +26,12 @@ public class Siri {
                 continue;
             }
 
-            String[] parts = input.split(" ", 2);
+            /*String[] parts = input.split(" ", 2);
             String keyword = parts[0];
-            String argument = parts.length > 1 ? parts[1] : "";
+            String argument = parts.length > 1 ? parts[1] : "";*/
+            int spaceIndex = input.indexOf(' ');
+            String keyword = (spaceIndex == -1) ? input : input.substring(0, spaceIndex);
+            String argument = (spaceIndex == -1) ? "" : input.substring(spaceIndex + 1);
 
             Command cmd = Command.fromKeyword(keyword);
 
@@ -52,23 +55,27 @@ public class Siri {
                 case TODO:
                     ToDoTask todo = new ToDoTask(argument);
                     taskManager.addTask(todo);
-                    consoleLogger.todo(todo);
+                    consoleLogger.displayTask(todo);
                     break;
 
                 case DEADLINE:
-                    String[] deadlineParts = argument.split("/by", 2);
-                    DeadlineTask deadline = new DeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
-                    taskManager.addTask(deadline);
-                    consoleLogger.deadline(deadline);
+                    int SlashIndex = input.indexOf('/');
+                    String desc = input.substring(spaceIndex + 1, SlashIndex);
+                    String deadline = input.substring(SlashIndex + 1);
+                    DeadlineTask deadlineTask = new DeadlineTask(desc, deadline);
+                    taskManager.addTask(deadlineTask);
+                    consoleLogger.displayTask(deadlineTask);
                     break;
 
                 case EVENT:
-                    String desc = argument.split("/from")[0].trim();
-                    String from = argument.split("/from")[1].split("/to")[0].trim();
-                    String to = argument.split("/to")[1].trim();
-                    EventTask event = new EventTask(desc, from, to);
+                    int firstSlashIndex = input.indexOf('/');
+                    int secondSlashIndex = input.indexOf('/', firstSlashIndex + 1);
+                    String description = input.substring(0, firstSlashIndex);
+                    String from = input.substring(firstSlashIndex + 1, secondSlashIndex);
+                    String to = input.substring(secondSlashIndex + 1);
+                    EventTask event = new EventTask(description, from, to);
                     taskManager.addTask(event);
-                    consoleLogger.event(event);
+                    consoleLogger.displayTask(event);
                     break;
 
                 case LIST:

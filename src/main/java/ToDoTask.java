@@ -1,6 +1,5 @@
 public class ToDoTask extends Task{
-    private String description;
-    private boolean isDone;
+
 
     public ToDoTask(String description) {
         super(description);
@@ -8,10 +7,10 @@ public class ToDoTask extends Task{
 
     @Override
     public String display() {
-        if (isDone) {
-            return "[T][X] " + description;
+        if (super.isDone()) {
+            return "[T][X] " + super.getDescription();
         } else {
-            return "[T][ ] " + description;
+            return "[T][ ] " + super.getDescription();
         }
     }
 }

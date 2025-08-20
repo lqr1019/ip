@@ -1,8 +1,8 @@
 public class ConsoleLogger {
-    private TaskManager taskManger;
+    private TaskManager taskManager;
 
-    public ConsoleLogger(TaskManager taskManger) {
-        this.taskManger = taskManger;
+    public ConsoleLogger(TaskManager taskManager) {
+        this.taskManager = taskManager;
     }
     /**
      Prints a greeting message from Siri to the console.
@@ -33,8 +33,8 @@ public class ConsoleLogger {
     public void displayList() {
         System.out.print("____________________________________________________________\n");
         System.out.print("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.taskManger.getCount(); i ++) {
-            System.out.print(i + 1 +". " + taskManger.getTasks().get(i).display() +"\n");
+        for (int i = 0; i < this.taskManager.getCount(); i ++) {
+            System.out.print(i + 1 +". " + taskManager.getTasks().get(i).display() +"\n");
         }
         System.out.print("____________________________________________________________\n");
     }
@@ -44,7 +44,7 @@ public class ConsoleLogger {
      * @param index the index of the task
      */
     public void mark(int index) {
-        Task t = taskManger.getTasks().get(index - 1);
+        Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
         System.out.print("____________________________________________________________\n");
         System.out.print("  Nice! I've marked this task as done:\n");
@@ -58,7 +58,7 @@ public class ConsoleLogger {
      * @param index the index of the task
      */
     public void unmark(int index) {
-        Task t = taskManger.getTasks().get(index - 1);
+        Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
         System.out.print("____________________________________________________________\n");
         System.out.print("  OK, I've marked this task as not done yet: \n");
@@ -67,15 +67,14 @@ public class ConsoleLogger {
         System.out.print("\n____________________________________________________________\n");
     }
 
-    public void todo(ToDoTask task) {
+    public void displayTask(Task task) {
+        System.out.print("____________________________________________________________\n");
+        System.out.print("Got it. I've added this task:\n");
+        System.out.print("  " + task.display() +"\n");
+        System.out.print("Now you have " + taskManager.getCount() + " tasks in the list.\n");
+        System.out.print("____________________________________________________________\n");
 
     }
 
-    public void deadline(DeadlineTask task) {
 
-    }
-
-    public void event(EventTask task) {
-
-    }
 }
