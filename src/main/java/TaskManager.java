@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskManger {
+public class TaskManager {
     private List<Task> list;
     private int count;
 
-    public TaskManger() {
+    public TaskManager() {
         list = new ArrayList<>();
         count = 0;
     }

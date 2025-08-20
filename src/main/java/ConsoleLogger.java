@@ -1,7 +1,7 @@
 public class ConsoleLogger {
-    private TaskManger taskManger;
+    private TaskManager taskManger;
 
-    public ConsoleLogger(TaskManger taskManger) {
+    public ConsoleLogger(TaskManager taskManger) {
         this.taskManger = taskManger;
     }
     /**
@@ -65,5 +65,17 @@ public class ConsoleLogger {
         System.out.print("  ");
         System.out.print(t.display());
         System.out.print("\n____________________________________________________________\n");
+    }
+
+    public void todo(ToDoTask task) {
+
+    }
+
+    public void deadline(DeadlineTask task) {
+
+    }
+
+    public void event(EventTask task) {
+
     }
 }
