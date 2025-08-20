@@ -11,6 +11,26 @@ public class Siri {
                 "                  ";
 
         System.out.print("Hello from\n" + siriLogo);
+        System.out.print("\n____________________________________________________________\n");
+        PrintGreet();
+        System.out.print("____________________________________________________________\n");
+        PrintExit();
+        System.out.print("____________________________________________________________\n");
 
+
+    }
+
+    /**
+     Prints a greeting message from Siri to the console.
+     */
+    public static void PrintGreet() {
+        System.out.print(" Hello! I'm Siri\n" + " What can I do for you?\n");
+    }
+
+    /**
+     Prints an exit message from Siri to the console.
+     */
+    public static void PrintExit() {
+        System.out.print(" Bye. Hope to see you again soon!\n");
     }
 }
