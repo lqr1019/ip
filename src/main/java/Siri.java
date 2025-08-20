@@ -14,15 +14,17 @@ public class Siri {
                 "                  ";
 
         System.out.print("Hello from\n" + siriLogo);
-        System.out.print("\n____________________________________________________________\n");
-        PrintGreet();
-        System.out.print("____________________________________________________________\n");
+
         Scanner sc = new Scanner(System.in);
         TaskManger taskManger = new TaskManger();
+        ConsoleLogger consoleLogger = new ConsoleLogger();
+        System.out.print("\n____________________________________________________________\n");
+        ConsoleLogger.PrintGreet();
+        System.out.print("____________________________________________________________\n");
         int index = 0;
         boolean Exit = false;
         while (!Exit) {
-            String word = sc.next();
+            String word = sc.nextLine();
 
             System.out.print("____________________________________________________________\n");
             System.out.print("User input: " + word +"\n");
@@ -30,51 +32,22 @@ public class Siri {
             if (word.equals("bye")) {
                 Exit = true;
             } else if (word.equals("list")){
-                taskManger.displayList();
+                ConsoleLogger.displayList(taskManger);
             }else {
-                Echo(word);
+                ConsoleLogger.Echo(word);
                 Task t = new Task(word);
                 taskManger.addTask(t);
             }
         }
-        PrintExit();
+        ConsoleLogger.PrintExit();
         System.out.print("____________________________________________________________\n");
 
 
     }
 
-    /**
-     Prints a greeting message from Siri to the console.
-     */
-    public static void PrintGreet() {
-        System.out.print(" Hello! I'm Siri\n" + " What can I do for you?\n");
-    }
 
-    /**
-     Prints an exit message from Siri to the console.
-     */
-    public static void PrintExit() {
-        System.out.print(" Bye. Hope to see you again soon!\n");
-    }
 
-    /**
-     * Prints back the given word to the console as an echo message.
-     *
-     * @param word the input string to be echoed
-     */
-    public static void Echo(String word) {
-        System.out.print("Echoing input " + word + "\n");
-    }
 
-    /**
-     * Display the words stored in the list
-     * @param list the stored list of text entered
-     * @param index the current index of the list
-     */
-    public static void display(String[] list, int index) {
-        for (int i = 0; i < index; i ++) {
-            System.out.print(i + 1 + ". " + list[i] +"\n");
-        }
-        System.out.print("____________________________________________________________\n");
-    }
+
+
 }

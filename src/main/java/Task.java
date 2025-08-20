@@ -1,6 +1,6 @@
 public class Task {
-    public String description;
-    public boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(){
         isDone = false;
@@ -29,9 +29,9 @@ public class Task {
 
     public String display() {
         if (isDone) {
-            return "[X]" + description;
+            return "[X] " + description;
         } else {
-            return "[ ]" + description;
+            return "[ ] " + description;
         }
     }
 
