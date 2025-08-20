@@ -18,6 +18,8 @@ public class Siri {
         PrintGreet();
         System.out.print("____________________________________________________________\n");
         Scanner sc = new Scanner(System.in);
+        String[] list = new String[100];
+        int index = 0;
         boolean Exit = false;
         while (!Exit) {
             String word = sc.next();
@@ -26,8 +28,12 @@ public class Siri {
             System.out.print("____________________________________________________________\n");
             if (word.equals("bye")) {
                 Exit = true;
-            } else {
+            } else if (word.equals("list")){
+                display(list, index);
+            }else {
                 Echo(word);
+                list[index] = word;
+                index ++;
             }
         }
         PrintExit();
@@ -57,5 +63,17 @@ public class Siri {
      */
     public static void Echo(String word) {
         System.out.print("Echoing input " + word + "\n");
+    }
+
+    /**
+     * Display the words stored in the list
+     * @param list the stored list of text entered
+     * @param index the current index of the list
+     */
+    public static void display(String[] list, int index) {
+        for (int i = 0; i < index; i ++) {
+            System.out.print(i + 1 + ". " + list[i] +"\n");
+        }
+        System.out.print("____________________________________________________________\n");
     }
 }
