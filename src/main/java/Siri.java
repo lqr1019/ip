@@ -18,22 +18,23 @@ public class Siri {
         PrintGreet();
         System.out.print("____________________________________________________________\n");
         Scanner sc = new Scanner(System.in);
-        String[] list = new String[100];
+        TaskManger taskManger = new TaskManger();
         int index = 0;
         boolean Exit = false;
         while (!Exit) {
             String word = sc.next();
+
             System.out.print("____________________________________________________________\n");
             System.out.print("User input: " + word +"\n");
             System.out.print("____________________________________________________________\n");
             if (word.equals("bye")) {
                 Exit = true;
             } else if (word.equals("list")){
-                display(list, index);
+                taskManger.displayList();
             }else {
                 Echo(word);
-                list[index] = word;
-                index ++;
+                Task t = new Task(word);
+                taskManger.addTask(t);
             }
         }
         PrintExit();
