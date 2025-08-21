@@ -39,13 +39,16 @@ public class TaskManager {
      * update the status of one task in the list
      * @param index the index of the task in the list
      * @param status the new status of the list
-     * @return whether the update is successful
      */
     public void updateTask(int index, Boolean status) {
         list.get(index).setDone(status);
 
     }
 
+    /**
+     * delete a task from the list
+     * @param index the index of the task
+     */
     public void deleteTask(int index) {
         list.remove(index);
         count --;
