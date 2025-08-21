@@ -80,5 +80,9 @@ public class ConsoleLogger {
 
     }
 
+    public void printLine(String word) {
+        System.out.print(word + "\n");
+    }
+
 
 }
