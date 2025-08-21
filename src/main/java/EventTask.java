@@ -8,6 +8,17 @@ public class EventTask extends Task{
         this.to = to;
     }
 
+    /**
+     * Returns the string representation of this event task,
+     * including its type marker "[E]", completion status,
+     * description, start time, and end time.
+     *
+     * <p>If the task is marked as done, "[X]" is shown;
+     * otherwise "[ ]" is shown.</p>
+     *
+     * @return a formatted string representing the event task
+     *         (e.g., "[E][ ] project meeting (from: Mon 2pm to: 4pm)")
+     */
     @Override
     public String display() {
         if (super.isDone()) {

@@ -67,6 +67,10 @@ public class ConsoleLogger {
         System.out.print("\n____________________________________________________________\n");
     }
 
+    /**
+     * display the task added and show the number of tasks in the list
+     * @param task the task added
+     */
     public void displayTask(Task task) {
         System.out.print("____________________________________________________________\n");
         System.out.print("Got it. I've added this task:\n");

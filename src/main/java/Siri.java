@@ -26,9 +26,6 @@ public class Siri {
                 continue;
             }
 
-            /*String[] parts = input.split(" ", 2);
-            String keyword = parts[0];
-            String argument = parts.length > 1 ? parts[1] : "";*/
             int spaceIndex = input.indexOf(' ');
             String keyword = (spaceIndex == -1) ? input : input.substring(0, spaceIndex);
             String argument = (spaceIndex == -1) ? "" : input.substring(spaceIndex + 1);
@@ -36,7 +33,7 @@ public class Siri {
             Command cmd = Command.fromKeyword(keyword);
 
             if (cmd == null) {
-                // 👇 unrecognized command → treat whole input as a generic Task
+                //unrecognised comment will treat as adding new general task
                 Task task = new Task(input);
                 taskManager.addTask(task);
                 consoleLogger.Echo(input);

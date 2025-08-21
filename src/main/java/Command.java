@@ -14,10 +14,19 @@ public enum Command {
         this.keyword = keyword;
     }
 
+    /**
+     * getter of keyword
+     * @return
+     */
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * get command from the keyword input
+     * @param keyword keyword that the user input
+     * @return the command associated with the keyword
+     */
     public static Command fromKeyword(String keyword) {
         for (Command cmd : Command.values()) {
             if (cmd.keyword.equalsIgnoreCase(keyword)) {
