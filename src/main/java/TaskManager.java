@@ -41,13 +41,14 @@ public class TaskManager {
      * @param status the new status of the list
      * @return whether the update is successful
      */
-    public boolean updateTask(int index, Boolean status) {
-        if (index >= count) {
-            return false;
-        } else {
-            list.get(index).setDone(status);
-            return true;
-        }
+    public void updateTask(int index, Boolean status) {
+        list.get(index).setDone(status);
+
+    }
+
+    public void deleteTask(int index) {
+        list.remove(index);
+        count --;
     }
 
 

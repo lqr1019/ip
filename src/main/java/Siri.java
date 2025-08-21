@@ -42,13 +42,68 @@ public class Siri {
 
                 switch (cmd) {
                     case MARK: {
-                        consoleLogger.mark(Integer.parseInt(argument));
+                        if (argument.isEmpty()) {
+                            throw new SiriException(
+                                    "Missing task number for mark",
+                                    "mark <number>",
+                                    input
+                            );
+                        }
+                        int n;
+                        try {
+                            n = Integer.parseInt(argument);
+                        } catch (NumberFormatException ex) {
+                            throw new SiriException(
+                                    "Task number must be an integer",
+                                    "mark <number>",
+                                    argument
+                            );
+                        }
+                        consoleLogger.mark(n);
                         break;
                     }
 
                     case UNMARK: {
-                        consoleLogger.unmark(Integer.parseInt(argument));
+                        if (argument.isEmpty()) {
+                            throw new SiriException(
+                                    "Missing task number for mark",
+                                    "unmark <number>",
+                                    input
+                            );
+                        }
+                        int n;
+                        try {
+                            n = Integer.parseInt(argument);
+                        } catch (NumberFormatException ex) {
+                            throw new SiriException(
+                                    "Task number must be an integer",
+                                    "unmark <number>",
+                                    argument
+                            );
+                        }
+                        consoleLogger.unmark(n);
                         break;
+                    }
+
+                    case DELETE: {
+                        if (argument.isEmpty()) {
+                            throw new SiriException(
+                                    "Missing task number for mark",
+                                    "delete <number>",
+                                    input
+                            );
+                        }
+                        int n;
+                        try {
+                            n = Integer.parseInt(argument);
+                        } catch (NumberFormatException ex) {
+                            throw new SiriException(
+                                    "Task number must be an integer",
+                                    "delete <number>",
+                                    argument
+                            );
+                        }
+                        consoleLogger.delete(n);
                     }
 
                     case TODO: {
@@ -99,6 +154,8 @@ public class Siri {
                         consoleLogger.displayList();
                         break;
                     }
+
+
 
                     case BYE: {
                         consoleLogger.PrintExit();

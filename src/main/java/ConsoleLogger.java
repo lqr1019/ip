@@ -44,6 +44,9 @@ public class ConsoleLogger {
      * @param index the index of the task
      */
     public void mark(int index) {
+        if (index > taskManager.getCount()) {
+            throw new SiriException("Task does not exist");
+        }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
         System.out.print("____________________________________________________________\n");
@@ -58,6 +61,9 @@ public class ConsoleLogger {
      * @param index the index of the task
      */
     public void unmark(int index) {
+        if (index > taskManager.getCount()) {
+            throw new SiriException("Task does not exist");
+        }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
         System.out.print("____________________________________________________________\n");
@@ -82,6 +88,22 @@ public class ConsoleLogger {
 
     public void printLine(String word) {
         System.out.print(word + "\n");
+    }
+
+    /**
+     * display the task deleted and show the number of tasks in the list
+     * @param index the index of the task deleted
+     */
+    public void delete(int index) {
+        if (index > taskManager.getCount()) {
+            throw new SiriException("Task does not exist");
+        }
+        System.out.print("____________________________________________________________\n");
+        System.out.print("Noted. I've removed this task:\n");
+        System.out.print("  " + taskManager.getTasks().get(index).display() + "\n");
+        taskManager.deleteTask(index);
+        System.out.print("Now you have " + taskManager.getCount() + " tasks in the list.\n");
+        System.out.print("____________________________________________________________\n");
     }
 
 

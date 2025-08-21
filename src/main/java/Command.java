@@ -6,6 +6,7 @@ public enum Command {
     DEADLINE("deadline"),
     EVENT("event"),
     LIST("list"),
+    DELETE("delete"),
     BYE("bye");   // 👈 new keyword
 
     private final String keyword;
