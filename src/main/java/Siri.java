@@ -33,11 +33,8 @@ public class Siri {
             Command cmd = Command.fromKeyword(keyword);
             try{
                 if (cmd == null) {
-                    //unrecognised comment will treat as adding new general task
-                    Task task = new Task(input);
-                    taskManager.addTask(task);
-                    consoleLogger.Echo(input);
-                    continue;
+                    //unrecognised comment will throw an exception
+                    throw new SiriException("Unknown command " + keyword);
                 }
 
                 switch (cmd) {
@@ -164,7 +161,7 @@ public class Siri {
                     }
                 }
             } catch (SiriException e) {
-                consoleLogger.printLine("Error: " + e.getMessage());
+                ConsoleLogger.printLine("Error: " + e.getMessage());
             }
         }
 
