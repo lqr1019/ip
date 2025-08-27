@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Siri {
+    private static final String DATA_PATH = "./data/data.txt";
+    private static final Storage STORAGE = new Storage(DATA_PATH);
     public static void main(String[] args) {
         //Generate from https://patorjk.com/software/taag/
         String siriLogo = "   _____ _      _ \n" +
@@ -57,6 +59,7 @@ public class Siri {
                             );
                         }
                         consoleLogger.mark(n);
+                        STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
@@ -79,6 +82,7 @@ public class Siri {
                             );
                         }
                         consoleLogger.unmark(n);
+                        STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
@@ -101,6 +105,7 @@ public class Siri {
                             );
                         }
                         consoleLogger.delete(n);
+                        STORAGE.save(taskManager.getTasks());
                     }
 
                     case TODO: {
@@ -110,6 +115,7 @@ public class Siri {
                         ToDoTask todo = new ToDoTask(argument);
                         taskManager.addTask(todo);
                         consoleLogger.displayTask(todo);
+                        STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
@@ -126,6 +132,7 @@ public class Siri {
                         DeadlineTask deadlineTask = new DeadlineTask(desc, deadline);
                         taskManager.addTask(deadlineTask);
                         consoleLogger.displayTask(deadlineTask);
+                        STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
@@ -144,6 +151,7 @@ public class Siri {
                         EventTask event = new EventTask(description, from, to);
                         taskManager.addTask(event);
                         consoleLogger.displayTask(event);
+                        STORAGE.save(taskManager.getTasks());
                         break;
                     }
 

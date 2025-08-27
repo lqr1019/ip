@@ -90,7 +90,7 @@ public class ConsoleLogger {
      * print one line of words
      * @param word words printed
      */
-    public void printLine(String word) {
+    public static void printLine(String word) {
         System.out.print(word + "\n");
     }
 
