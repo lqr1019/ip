@@ -120,12 +120,13 @@ public class Siri {
                     }
 
                     case DEADLINE: {
-                        int SlashIndex = input.indexOf('/');
-                        if (SlashIndex < 0) {
-                            throw new SiriException("Missing '/' separator for deadline task", "deadline <description> / <time>", argument);
+                        final String byMarker = "/by";
+                        int byIndex = input.indexOf(byMarker);
+                        if (byIndex < 0) {
+                            throw new SiriException("Missing '/by' separator for deadline task", "deadline <description> / <time>", argument);
                         }
-                        String desc = input.substring(spaceIndex + 1, SlashIndex);
-                        String deadline = input.substring(SlashIndex + 1);
+                        String desc = input.substring(spaceIndex + 1, byIndex);
+                        String deadline = input.substring(byIndex + byMarker.length() + 1);
                         if (desc.isEmpty() || deadline.isEmpty()) {
                             throw new SiriException("Deadline description or date is empty", "deadline <description> / <time>", argument);
                         }

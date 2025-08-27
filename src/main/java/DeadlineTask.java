@@ -1,10 +1,24 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class DeadlineTask extends Task{
     private String deadline;
+    private LocalDate dateTime;
 
     public DeadlineTask(String description, String deadline) {
         super(description);
         this.deadline = deadline;
+
+        LocalDate parsed = null;
+        try {
+            parsed = LocalDate.parse(deadline);
+        } catch (Exception e) {
+
+        }
+        this.dateTime = parsed;
     }
+
 
     /**
      * Returns the string representation of this deadline task,
@@ -19,14 +33,26 @@ public class DeadlineTask extends Task{
      */
     @Override
     public String display() {
-        if (super.isDone()) {
-            return "[D][X] " + super.getDescription() + " (" + deadline + ")";
+        String ddl;
+        if (dateTime != null) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+            ddl = dateTime.format(dateTimeFormatter);
         } else {
-            return "[D][ ] " + super.getDescription() + " (" + deadline + ")";
+            ddl = deadline;
+        }
+        if (super.isDone()) {
+            return "[D][X] " + super.getDescription() + " (by: " + ddl + ")";
+        } else {
+            return "[D][ ] " + super.getDescription() + " (by: " + ddl + ")";
         }
     }
 
     public String getDeadline() {
-        return this.deadline;
+        return deadline;
     }
+
+    public LocalDate getDateTime() {
+        return this.dateTime;
+    }
+
 }
