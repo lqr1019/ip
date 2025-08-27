@@ -27,4 +27,12 @@ public class EventTask extends Task{
             return "[E][ ] " + super.getDescription() + " (" + from + to +")";
         }
     }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
 }

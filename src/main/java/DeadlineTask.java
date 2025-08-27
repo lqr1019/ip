@@ -25,4 +25,8 @@ public class DeadlineTask extends Task{
             return "[D][ ] " + super.getDescription() + " (" + deadline + ")";
         }
     }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }
