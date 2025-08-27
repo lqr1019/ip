@@ -28,11 +28,10 @@ public class Siri {
                 continue;
             }
 
-            int spaceIndex = input.indexOf(' ');
-            String keyword = (spaceIndex == -1) ? input : input.substring(0, spaceIndex);
-            String argument = (spaceIndex == -1) ? "" : input.substring(spaceIndex + 1);
-
-            Command cmd = Command.fromKeyword(keyword);
+            Parser parser = new Parser(input);
+            String keyword = parser.getKeyword();
+            String argument = parser.getArgument();
+            Command cmd = parser.getCommand();
             try{
                 if (cmd == null) {
                     //unrecognised comment will throw an exception
@@ -41,78 +40,28 @@ public class Siri {
 
                 switch (cmd) {
                     case MARK: {
-                        if (argument.isEmpty()) {
-                            throw new SiriException(
-                                    "Missing task number for mark",
-                                    "mark <number>",
-                                    input
-                            );
-                        }
-                        int n;
-                        try {
-                            n = Integer.parseInt(argument);
-                        } catch (NumberFormatException ex) {
-                            throw new SiriException(
-                                    "Task number must be an integer",
-                                    "mark <number>",
-                                    argument
-                            );
-                        }
+                        int n = parser.parseMark();
                         consoleLogger.mark(n);
                         STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
                     case UNMARK: {
-                        if (argument.isEmpty()) {
-                            throw new SiriException(
-                                    "Missing task number for mark",
-                                    "unmark <number>",
-                                    input
-                            );
-                        }
-                        int n;
-                        try {
-                            n = Integer.parseInt(argument);
-                        } catch (NumberFormatException ex) {
-                            throw new SiriException(
-                                    "Task number must be an integer",
-                                    "unmark <number>",
-                                    argument
-                            );
-                        }
+                       int n = parser.parseUnMark();
                         consoleLogger.unmark(n);
                         STORAGE.save(taskManager.getTasks());
                         break;
                     }
 
                     case DELETE: {
-                        if (argument.isEmpty()) {
-                            throw new SiriException(
-                                    "Missing task number for mark",
-                                    "delete <number>",
-                                    input
-                            );
-                        }
-                        int n;
-                        try {
-                            n = Integer.parseInt(argument);
-                        } catch (NumberFormatException ex) {
-                            throw new SiriException(
-                                    "Task number must be an integer",
-                                    "delete <number>",
-                                    argument
-                            );
-                        }
+                        int n = parser.parseDelete();
                         consoleLogger.delete(n);
                         STORAGE.save(taskManager.getTasks());
                     }
 
                     case TODO: {
-                        if (argument.isEmpty()) {
-                            throw new SiriException("Todo task description is empty", "todo <description>", argument);
-                        }
-                        ToDoTask todo = new ToDoTask(argument);
+                        String parse = parser.parseTodo();
+                        ToDoTask todo = new ToDoTask(parse);
                         taskManager.addTask(todo);
                         consoleLogger.displayTask(todo);
                         STORAGE.save(taskManager.getTasks());
@@ -120,17 +69,8 @@ public class Siri {
                     }
 
                     case DEADLINE: {
-                        final String byMarker = "/by";
-                        int byIndex = input.indexOf(byMarker);
-                        if (byIndex < 0) {
-                            throw new SiriException("Missing '/by' separator for deadline task", "deadline <description> / <time>", argument);
-                        }
-                        String desc = input.substring(spaceIndex + 1, byIndex);
-                        String deadline = input.substring(byIndex + byMarker.length() + 1);
-                        if (desc.isEmpty() || deadline.isEmpty()) {
-                            throw new SiriException("Deadline description or date is empty", "deadline <description> / <time>", argument);
-                        }
-                        DeadlineTask deadlineTask = new DeadlineTask(desc, deadline);
+                        String[] parse = parser.parseDeadline();
+                        DeadlineTask deadlineTask = new DeadlineTask(parse[0], parse[1]);
                         taskManager.addTask(deadlineTask);
                         consoleLogger.displayTask(deadlineTask);
                         STORAGE.save(taskManager.getTasks());
@@ -138,18 +78,8 @@ public class Siri {
                     }
 
                     case EVENT: {
-                        int firstSlashIndex = input.indexOf('/');
-                        int secondSlashIndex = input.indexOf('/', firstSlashIndex + 1);
-                        if (firstSlashIndex < 0 || secondSlashIndex < 0) {
-                            throw new SiriException("Missing '/' separator for event task", "event <description> / <start> / <end>", argument);
-                        }
-                        String description = input.substring(0, firstSlashIndex);
-                        String from = input.substring(firstSlashIndex + 1, secondSlashIndex);
-                        String to = input.substring(secondSlashIndex + 1);
-                        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                            throw new SiriException("Event description, start, or end is empty", "event <description> / <start> / <end>", argument);
-                        }
-                        EventTask event = new EventTask(description, from, to);
+                        String[] parse = parser.parseEvent();;
+                        EventTask event = new EventTask(parse[0], parse[1], parse[2]);
                         taskManager.addTask(event);
                         consoleLogger.displayTask(event);
                         STORAGE.save(taskManager.getTasks());
