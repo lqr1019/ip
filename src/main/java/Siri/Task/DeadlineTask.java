@@ -1,8 +1,10 @@
+package Siri.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private String deadline;
     private LocalDate dateTime;
 

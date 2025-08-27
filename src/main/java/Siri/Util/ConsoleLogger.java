@@ -1,3 +1,8 @@
+package Siri.Util;
+
+import Siri.Exception.SiriException;
+import Siri.Task.Task;
+
 public class ConsoleLogger {
     private TaskManager taskManager;
 
@@ -5,14 +10,14 @@ public class ConsoleLogger {
         this.taskManager = taskManager;
     }
     /**
-     Prints a greeting message from Siri to the console.
+     Prints a greeting message from Siri.Siri to the console.
      */
     public void PrintGreet() {
-        System.out.print(" Hello! I'm Siri\n" + " What can I do for you?\n");
+        System.out.print(" Hello! I'm Siri.Siri\n" + " What can I do for you?\n");
     }
 
     /**
-     Prints an exit message from Siri to the console.
+     Prints an exit message from Siri.Siri to the console.
      */
     public void PrintExit() {
         System.out.print(" Bye. Hope to see you again soon!\n");
@@ -45,7 +50,7 @@ public class ConsoleLogger {
      */
     public void mark(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Task does not exist");
+            throw new SiriException("Siri.Task.Task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
@@ -62,7 +67,7 @@ public class ConsoleLogger {
      */
     public void unmark(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Task does not exist");
+            throw new SiriException("Siri.Task.Task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
@@ -100,7 +105,7 @@ public class ConsoleLogger {
      */
     public void delete(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Task does not exist");
+            throw new SiriException("Siri.Task.Task does not exist");
         }
         System.out.print("____________________________________________________________\n");
         System.out.print("Noted. I've removed this task:\n");

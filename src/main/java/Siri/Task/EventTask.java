@@ -1,4 +1,6 @@
-public class EventTask extends Task{
+package Siri.Task;
+
+public class EventTask extends Task {
     private String from;
     private String to;
 

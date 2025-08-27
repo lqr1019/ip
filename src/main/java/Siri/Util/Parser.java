@@ -1,3 +1,8 @@
+package Siri.Util;
+
+import Siri.Command;
+import Siri.Exception.SiriException;
+
 public class Parser {
     private Command command;
     private String description;
@@ -51,7 +56,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Task number must be an integer",
+                    "Siri.Task.Task number must be an integer",
                     "mark <number>",
                     argument
             );
@@ -72,7 +77,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Task number must be an integer",
+                    "Siri.Task.Task number must be an integer",
                     "unmark <number>",
                     argument
             );
@@ -93,7 +98,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Task number must be an integer",
+                    "Siri.Task.Task number must be an integer",
                     "delete <number>",
                     argument
             );

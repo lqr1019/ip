@@ -1,3 +1,5 @@
+package Siri;
+
 public enum Command {
     ECHO("echo"),
     MARK("mark"),
