@@ -3,12 +3,14 @@ package Siri;
 import Siri.Exception.SiriException;
 import Siri.Task.DeadlineTask;
 import Siri.Task.EventTask;
+import Siri.Task.Task;
 import Siri.Task.ToDoTask;
 import Siri.Util.ConsoleLogger;
 import Siri.Util.Parser;
 import Siri.Util.Storage;
 import Siri.Util.TaskManager;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Siri {
@@ -26,6 +28,7 @@ public class Siri {
                 "                  ";
 
         System.out.print("Hello from\n" + siriLogo);
+
         Scanner sc = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         ConsoleLogger consoleLogger = new ConsoleLogger(taskManager);
@@ -37,6 +40,7 @@ public class Siri {
             if (input.isEmpty()) {
                 continue;
             }
+
             Parser parser = new Parser(input);
             String keyword = parser.getKeyword();
             String argument = parser.getArgument();
@@ -99,6 +103,15 @@ public class Siri {
                         consoleLogger.displayList();
                         break;
                     }
+
+                    case FIND: {
+                        String description = parser.parseFind();
+                        List<Task> list = taskManager.findTask(description);
+                        consoleLogger.displayFind(list);
+                        break;
+                    }
+
+
 
                     case BYE: {
                         consoleLogger.PrintExit();

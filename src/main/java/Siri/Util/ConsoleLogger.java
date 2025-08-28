@@ -3,6 +3,8 @@ package Siri.Util;
 import Siri.Exception.SiriException;
 import Siri.Task.Task;
 
+import java.util.List;
+
 public class ConsoleLogger {
     private TaskManager taskManager;
 
@@ -117,4 +119,15 @@ public class ConsoleLogger {
     }
 
 
+    public void displayFind(List<Task> list) {
+        if (list.isEmpty()) {
+            System.out.print("Can not find matching tasks");
+        }
+        System.out.print("____________________________________________________________\n");
+        System.out.print("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < list.size(); i ++) {
+            System.out.print(i + 1 +". " + list.get(i).display() +"\n");
+        }
+        System.out.print("____________________________________________________________\n");
+    }
 }

@@ -14,6 +14,18 @@ public class TaskManager {
         count = 0;
     }
 
+    public List<Task> findTask(String description) {
+        List<Task> res = new ArrayList<>();
+        for (Task task : list) {
+            String des = task.getDescription();
+            if (des.contains(description)) {
+                res.add(task);
+            }
+        }
+        return res;
+
+    }
+
     /**
      *
      * @return task list
