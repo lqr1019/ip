@@ -8,6 +8,11 @@ public class DeadlineTask extends Task {
     private String deadline;
     private LocalDate dateTime;
 
+    /**
+     * Constructor for deadline task
+     * @param description the description of the task
+     * @param deadline the deadline of the task
+     */
     public DeadlineTask(String description, String deadline) {
         super(description);
         this.deadline = deadline;
@@ -49,12 +54,13 @@ public class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * getter of deadline
+     * @return deadline
+     */
     public String getDeadline() {
         return deadline;
     }
 
-    public LocalDate getDateTime() {
-        return this.dateTime;
-    }
 
 }

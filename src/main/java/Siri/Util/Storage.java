@@ -20,6 +20,10 @@ public class Storage {
         this.filePath = Paths.get(relativePath);
     }
 
+    /**
+     * make sure the file and its parent directory exists
+     * @throws IOException
+     */
     public void ensureFile() throws IOException {
         Path parentPath = filePath.getParent();
         if (parentPath != null && !Files.exists(parentPath)) {
@@ -30,6 +34,10 @@ public class Storage {
         }
     }
 
+    /**
+     * read all the tasks in the file and store them in a list
+     * @return a list of tasks
+     */
     public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -47,6 +55,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * save all the tasks in the file
+     * @param tasks the list of tasks
+     */
     public void save(List<Task> tasks) {
         try {
             ensureFile();
@@ -62,6 +74,11 @@ public class Storage {
 
     }
 
+    /**
+     * Format a task so it can be displayed in the expected behavior
+     * @param t the task
+     * @return the string of the formatted task
+     */
     public String format(Task t) {
         String done = t.isDone() ? "1" : "0";
         if (t instanceof ToDoTask) {
@@ -77,8 +94,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parse a line in the file so it can be converted to a task
+     * @param line a line of string i the file
+     * @return the task
+     */
     private Task parse(String line) {
-        // robust split on " | " while keeping empty fields if any
         String[] p = line.split(" \\| ");
         if (p.length < 3) return null;
 

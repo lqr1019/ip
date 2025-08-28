@@ -4,6 +4,12 @@ public class EventTask extends Task {
     private String from;
     private String to;
 
+    /**
+     * Constructor of EventTask
+     * @param description description of the task
+     * @param from the starting point
+     * @param to the ending point
+     */
     public EventTask(String description, String from, String to) {
         super(description);
         this.from = from;
@@ -30,10 +36,18 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Getter of from
+     * @return from
+     */
     public String getFrom() {
         return this.from;
     }
 
+    /**
+     * Getter of to
+     * @return to
+     */
     public String getTo() {
         return this.to;
     }

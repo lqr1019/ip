@@ -13,28 +13,45 @@ public class Parser {
     private String to;
     private int spaceIndex;
 
+    /**
+     * Constructor of parser, determine the keyword and argument from the input
+     * @param input the input contents
+     */
     public Parser(String input) {
         this.spaceIndex = input.indexOf(' ');
         this.keyword = (spaceIndex == -1) ? input : input.substring(0, spaceIndex);
         this.argument = (spaceIndex == -1) ? "" : input.substring(spaceIndex + 1);
     }
 
+    /**
+     * get command from the keyword
+     * @return command
+     */
     public Command getCommand() {
         return Command.fromKeyword(keyword);
     }
 
-    public int getSpaceIndex() {
-        return this.spaceIndex;
-    }
-
+    /**
+     * Getter of keyword
+     * @return keyword
+     */
     public String getKeyword() {
         return this.keyword;
     }
 
+    /**
+     * Getter of argument
+     * @return argument
+     */
     public String getArgument() {
         return this.argument;
     }
 
+    /**
+     * Parsing ToDoTask
+     * @return the description of the ToDoTask if the argument is valid
+     * @throws SiriException if the argument is empty, throw an exception
+     */
     public String parseTodo() throws SiriException {
         if (argument.isEmpty()) {
             throw new SiriException("Todo task description is empty", "todo <description>", argument);
@@ -43,6 +60,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parsing mark action
+     * @return the index of the task being marked
+     * @throws SiriException if the index is invalid, throw an exception
+     */
     public int parseMark() throws SiriException {
         if (argument.isEmpty()) {
             throw new SiriException(
@@ -64,6 +86,11 @@ public class Parser {
         return n;
     }
 
+    /**
+     * Parsing unmark action
+     * @return the index of the task being unmarked
+     * @throws SiriException if the index is invalid, throw an exception
+     */
     public int parseUnMark() throws SiriException {
         if (argument.isEmpty()) {
             throw new SiriException(
@@ -85,6 +112,11 @@ public class Parser {
         return n;
     }
 
+    /**
+     * Parsing delete action
+     * @return the index of the task being deleted
+     * @throws SiriException if the index is invalid, throw an exception
+     */
     public int parseDelete() throws SiriException {
         if (argument.isEmpty()) {
             throw new SiriException(
@@ -106,6 +138,11 @@ public class Parser {
         return n;
     }
 
+    /**
+     * Parsing deadline task
+     * @return a String array where the first element is the description adn the second is the deadline
+     * @throws SiriException if the argument is invalid, throw an exception
+     */
     public String[] parseDeadline() throws SiriException {
         final String MARKER = "/by";
         if (argument == null) argument = "";
@@ -131,6 +168,11 @@ public class Parser {
         return new String[]{description, deadline};
     }
 
+    /**
+     * Parsing EventTask
+     * @return a String array where the first element is the description, the second is the starting time, the third is the ending time
+     * @throws SiriException if the argument is invalid, throw an exception
+     */
     public String[] parseEvent() throws SiriException {
         if (argument == null) argument = "";
         int firstSlashIndex = argument.indexOf('/');
