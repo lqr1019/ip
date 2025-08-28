@@ -2,6 +2,10 @@ package Siri.Task;
 
 public class ToDoTask extends Task {
 
+    /**
+     * Constrcutor of todoTask
+     * @param description description of task
+     */
     public ToDoTask(String description) {
         super(description);
     }

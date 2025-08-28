@@ -8,6 +8,10 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Constructor of task
+     * @param description description of task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
