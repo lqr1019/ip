@@ -111,8 +111,6 @@ public class Siri {
                         break;
                     }
 
-
-
                     case BYE: {
                         consoleLogger.PrintExit();
                         sc.close();
