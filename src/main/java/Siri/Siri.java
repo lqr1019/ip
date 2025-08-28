@@ -26,7 +26,6 @@ public class Siri {
                 "                  ";
 
         System.out.print("Hello from\n" + siriLogo);
-
         Scanner sc = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         ConsoleLogger consoleLogger = new ConsoleLogger(taskManager);
@@ -38,7 +37,6 @@ public class Siri {
             if (input.isEmpty()) {
                 continue;
             }
-
             Parser parser = new Parser(input);
             String keyword = parser.getKeyword();
             String argument = parser.getArgument();
@@ -102,8 +100,6 @@ public class Siri {
                         break;
                     }
 
-
-
                     case BYE: {
                         consoleLogger.PrintExit();
                         sc.close();
@@ -114,13 +110,5 @@ public class Siri {
                 ConsoleLogger.printLine("Error: " + e.getMessage());
             }
         }
-
-
     }
-
-
-
-
-
-
 }

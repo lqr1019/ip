@@ -9,6 +9,7 @@ public class ConsoleLogger {
     public ConsoleLogger(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
+
     /**
      Prints a greeting message from Siri.Siri to the console.
      */
