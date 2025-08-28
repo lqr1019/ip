@@ -146,4 +146,12 @@ public class Parser {
         }
         return new String[] {description, from, to};
     }
+
+    public String parseFind() throws SiriException{
+        if (argument.isEmpty()) {
+            throw new SiriException("Missing keyword");
+        } else {
+            return argument;
+        }
+    }
 }

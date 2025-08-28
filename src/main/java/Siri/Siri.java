@@ -3,12 +3,14 @@ package Siri;
 import Siri.Exception.SiriException;
 import Siri.Task.DeadlineTask;
 import Siri.Task.EventTask;
+import Siri.Task.Task;
 import Siri.Task.ToDoTask;
 import Siri.Util.ConsoleLogger;
 import Siri.Util.Parser;
 import Siri.Util.Storage;
 import Siri.Util.TaskManager;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Siri {
@@ -99,6 +101,13 @@ public class Siri {
 
                     case LIST: {
                         consoleLogger.displayList();
+                        break;
+                    }
+
+                    case FIND: {
+                        String description = parser.parseFind();
+                        List<Task> list = taskManager.findTask(description);
+                        consoleLogger.displayFind(list);
                         break;
                     }
 

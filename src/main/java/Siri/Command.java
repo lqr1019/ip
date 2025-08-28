@@ -9,7 +9,8 @@ public enum Command {
     EVENT("event"),
     LIST("list"),
     DELETE("delete"),
-    BYE("bye");   // 👈 new keyword
+    FIND("find"),
+    BYE("bye");
 
     private final String keyword;
 
@@ -19,7 +20,7 @@ public enum Command {
 
     /**
      * getter of keyword
-     * @return
+     * @return the keyword
      */
     public String getKeyword() {
         return keyword;
