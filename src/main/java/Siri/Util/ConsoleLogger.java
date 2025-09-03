@@ -124,6 +124,22 @@ public class ConsoleLogger {
     }
 
     /**
+     * Print each argument on its own line.
+     * @param words lines to print
+     * @return the accumulated text that was printed
+     */
+    public static StringBuilder printLines(String... words) {
+        StringBuilder res = new StringBuilder();
+        if (words != null) {
+            for (String w : words) {
+                res.append(String.valueOf(w)).append("\n");
+            }
+        }
+        System.out.print(res);
+        return res;
+    }
+
+    /**
      * display the task deleted and show the number of tasks in the list
      * @param index the index of the task deleted
      */
