@@ -16,6 +16,11 @@ import java.util.Scanner;
 public class Siri {
     private static final String DATA_PATH = "./data/data.txt";
     private static final Storage STORAGE = new Storage(DATA_PATH);
+
+    /**
+     * Starting function of the app
+     * @param args
+     */
     public static void main(String[] args) {
         //Generate from https://patorjk.com/software/taag/
         String siriLogo = "   _____ _      _ \n" +

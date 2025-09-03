@@ -55,7 +55,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * getter of deadline
+     * Get deadline of the task
      * @return deadline
      */
     public String getDeadline() {
