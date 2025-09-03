@@ -1,6 +1,5 @@
-package JUnit;
+package Siri.Util;
 
-import Siri.Util.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
