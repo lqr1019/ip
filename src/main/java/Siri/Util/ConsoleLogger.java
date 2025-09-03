@@ -15,15 +15,19 @@ public class ConsoleLogger {
     /**
      Prints a greeting message from Siri.Siri to the console.
      */
-    public void PrintGreet() {
-        System.out.print(" Hello! I'm Siri.Siri\n" + " What can I do for you?\n");
+    public StringBuilder PrintGreet() {
+        StringBuilder res = new StringBuilder(" Hello! I'm Siri.Siri\n" + " What can I do for you?\n");
+        System.out.print(res);
+        return res;
     }
 
     /**
      Prints an exit message from Siri.Siri to the console.
      */
-    public void PrintExit() {
-        System.out.print(" Bye. Hope to see you again soon!\n");
+    public StringBuilder PrintExit() {
+        StringBuilder res = new StringBuilder(" Bye. Hope to see you again soon!\n");
+        System.out.print(res);
+        return res;
     }
 
     /**
@@ -31,66 +35,80 @@ public class ConsoleLogger {
      *
      * @param word the input string to be echoed
      */
-    public void Echo(String word) {
-        System.out.print("Added: " + word + "\n");
+    public String Echo(String word) {
+        String res = "Siri heard: " + word + "\n";
+        System.out.print(res);
+        return res;
     }
 
     /**
      *  Prints every task stored in the taskManger
      */
-    public void displayList() {
-        System.out.print("____________________________________________________________\n");
-        System.out.print("Here are the tasks in your list:\n");
+    public StringBuilder displayList() {
+        StringBuilder res = new StringBuilder("____________________________________________________________\n");
+        res.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.taskManager.getCount(); i ++) {
-            System.out.print(i + 1 +". " + taskManager.getTasks().get(i).display() +"\n");
+            res.append(i + 1).append(". ").append(taskManager.getTasks().get(i).display()).append("\n");
         }
-        System.out.print("____________________________________________________________\n");
+        res.append("____________________________________________________________\n");
+        System.out.print(res);
+
+        return res;
     }
 
     /**
      * mark a task
      * @param index the index of the task
      */
-    public void mark(int index) {
+    public StringBuilder mark(int index) {
         if (index > taskManager.getCount()) {
             throw new SiriException("Siri.Task.Task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
-        System.out.print("____________________________________________________________\n");
-        System.out.print("  Nice! I've marked this task as done:\n");
-        System.out.print("  ");
-        System.out.print(t.display());
-        System.out.print("\n____________________________________________________________\n");
+        StringBuilder res = new StringBuilder();
+        res.append("____________________________________________________________\n");
+        res.append("  Nice! I've marked this task as done:\n");
+        res.append("  ");
+        res.append(t.display());
+        res.append("\n____________________________________________________________\n");
+        System.out.print(res);
+        return res;
     }
 
     /**
      * unmark a task
      * @param index the index of the task
      */
-    public void unmark(int index) {
+    public StringBuilder unmark(int index) {
         if (index > taskManager.getCount()) {
             throw new SiriException("Siri.Task.Task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
-        System.out.print("____________________________________________________________\n");
-        System.out.print("  OK, I've marked this task as not done yet: \n");
-        System.out.print("  ");
-        System.out.print(t.display());
-        System.out.print("\n____________________________________________________________\n");
+        StringBuilder res = new StringBuilder();
+        res.append("____________________________________________________________\n");
+        res.append("  Nice! I've marked this task as not done:\n");
+        res.append("  ");
+        res.append(t.display());
+        res.append("\n____________________________________________________________\n");
+        System.out.print(res);
+        return res;
     }
 
     /**
      * display the task added and show the number of tasks in the list
      * @param task the task added
      */
-    public void displayTask(Task task) {
-        System.out.print("____________________________________________________________\n");
-        System.out.print("Got it. I've added this task:\n");
-        System.out.print("  " + task.display() +"\n");
-        System.out.print("Now you have " + taskManager.getCount() + " tasks in the list.\n");
-        System.out.print("____________________________________________________________\n");
+    public StringBuilder displayTask(Task task) {
+        StringBuilder res = new StringBuilder();
+        res.append("____________________________________________________________\n");
+        res.append("Got it. I've added this task:\n");
+        res.append("  ").append(task.display()).append("\n");
+        res.append("Now you have ").append(taskManager.getCount()).append(" tasks in the list.\n");
+        res.append("____________________________________________________________\n");
+        System.out.print(res);
+        return res;
 
     }
 
@@ -98,36 +116,45 @@ public class ConsoleLogger {
      * print one line of words
      * @param word words printed
      */
-    public static void printLine(String word) {
-        System.out.print(word + "\n");
+    public static StringBuilder printLine(String word) {
+        StringBuilder res = new StringBuilder();
+        res.append(word).append("\n");
+        System.out.print(res);
+        return res;
     }
 
     /**
      * display the task deleted and show the number of tasks in the list
      * @param index the index of the task deleted
      */
-    public void delete(int index) {
+    public StringBuilder delete(int index) {
         if (index > taskManager.getCount()) {
             throw new SiriException("Siri.Task.Task does not exist");
         }
-        System.out.print("____________________________________________________________\n");
-        System.out.print("Noted. I've removed this task:\n");
-        System.out.print("  " + taskManager.getTasks().get(index).display() + "\n");
-        taskManager.deleteTask(index);
-        System.out.print("Now you have " + taskManager.getCount() + " tasks in the list.\n");
-        System.out.print("____________________________________________________________\n");
+        StringBuilder res = new StringBuilder();
+        res.append("____________________________________________________________\n");
+        res.append("Noted. I've removed this task:\n");
+        res.append("  ").append(taskManager.getTasks().get(index - 1).display()).append("\n");
+        taskManager.deleteTask(index - 1);
+        res.append("Now you have ").append(taskManager.getCount()).append(" tasks in the list.\n");
+        res.append("____________________________________________________________\n");
+        System.out.print(res);
+        return res;
     }
 
 
-    public void displayFind(List<Task> list) {
+    public StringBuilder displayFind(List<Task> list) {
         if (list.isEmpty()) {
             System.out.print("Can not find matching tasks");
         }
-        System.out.print("____________________________________________________________\n");
-        System.out.print("Here are the matching tasks in your list:\n");
+        StringBuilder res = new StringBuilder();
+        res.append("____________________________________________________________\n");
+        res.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < list.size(); i ++) {
-            System.out.print(i + 1 +". " + list.get(i).display() +"\n");
+            res.append(i + 1).append(". ").append(list.get(i).display()).append("\n");
         }
-        System.out.print("____________________________________________________________\n");
+        res.append("____________________________________________________________\n");
+        System.out.print(res);
+        return res;
     }
 }
