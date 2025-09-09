@@ -27,14 +27,9 @@ public class TaskManager {
      * @return A list of matching tasks
      */
     public List<Task> findTask(String description) {
-        List<Task> res = new ArrayList<>();
-        for (Task task : list) {
-            String des = task.getDescription();
-            if (des.contains(description)) {
-                res.add(task);
-            }
-        }
-        return res;
+        return list.stream()
+                .filter(t -> t.getDescription().toLowerCase().contains(description.toLowerCase()))
+                .toList();
     }
 
     /**
