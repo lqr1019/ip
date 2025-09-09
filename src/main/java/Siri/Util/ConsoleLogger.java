@@ -45,12 +45,12 @@ public class ConsoleLogger {
      *  Prints every task stored in the taskManger
      */
     public StringBuilder displayList() {
-        StringBuilder res = new StringBuilder("____________________________________________________________\n");
+        StringBuilder res = new StringBuilder();
         res.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.taskManager.getCount(); i ++) {
             res.append(i + 1).append(". ").append(taskManager.getTasks().get(i).display()).append("\n");
         }
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         System.out.print(res);
 
         return res;
@@ -67,11 +67,11 @@ public class ConsoleLogger {
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
         StringBuilder res = new StringBuilder();
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         res.append("  Nice! I've marked this task as done:\n");
         res.append("  ");
         res.append(t.display());
-        res.append("\n____________________________________________________________\n");
+        //res.append("\n____________________________________________________________\n");
         System.out.print(res);
         return res;
     }
@@ -87,11 +87,11 @@ public class ConsoleLogger {
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
         StringBuilder res = new StringBuilder();
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         res.append("  Nice! I've marked this task as not done:\n");
         res.append("  ");
         res.append(t.display());
-        res.append("\n____________________________________________________________\n");
+        //res.append("\n____________________________________________________________\n");
         System.out.print(res);
         return res;
     }
@@ -102,11 +102,11 @@ public class ConsoleLogger {
      */
     public StringBuilder displayTask(Task task) {
         StringBuilder res = new StringBuilder();
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         res.append("Got it. I've added this task:\n");
         res.append("  ").append(task.display()).append("\n");
         res.append("Now you have ").append(taskManager.getCount()).append(" tasks in the list.\n");
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         System.out.print(res);
         return res;
 
@@ -148,12 +148,12 @@ public class ConsoleLogger {
             throw new SiriException("Siri.Task.Task does not exist");
         }
         StringBuilder res = new StringBuilder();
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         res.append("Noted. I've removed this task:\n");
         res.append("  ").append(taskManager.getTasks().get(index - 1).display()).append("\n");
         taskManager.deleteTask(index - 1);
         res.append("Now you have ").append(taskManager.getCount()).append(" tasks in the list.\n");
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         System.out.print(res);
         return res;
     }
@@ -164,12 +164,12 @@ public class ConsoleLogger {
             System.out.print("Can not find matching tasks");
         }
         StringBuilder res = new StringBuilder();
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         res.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < list.size(); i ++) {
             res.append(i + 1).append(". ").append(list.get(i).display()).append("\n");
         }
-        res.append("____________________________________________________________\n");
+        //res.append("____________________________________________________________\n");
         System.out.print(res);
         return res;
     }

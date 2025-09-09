@@ -41,6 +41,7 @@ public class MainWindow extends AnchorPane {
         siri = s;
     }
 
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Soro's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -48,9 +49,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        parser = new Parser(input);
-        Command command = parser.getCommand();
+        String welcome = siri.getWelcome();
         String response = siri.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSiriDialog(welcome, dukeImage)
+        );
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSiriDialog(response, dukeImage)

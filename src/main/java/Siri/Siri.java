@@ -217,6 +217,18 @@ public class Siri {
         return out.toString();
     }
 
+    public String getWelcome() {
+        String siriLogo = "   _____ _      _ \n" +
+                "  / ____(_)    (_)\n" +
+                " | (___  _ _ __ _ \n" +
+                "  \\___ \\| | '__| |\n" +
+                "  ____) | | |  | |\n" +
+                " |_____/|_|_|  |_|\n" +
+                "                  \n" +
+                "                  ";
+
+        return "Hello from\n" + siriLogo;
+    }
 
 
 
