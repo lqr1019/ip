@@ -204,6 +204,11 @@ public class Siri {
                     List<Task> hits = taskManager.findTask(kw);
                     out.append(consoleLogger.displayFind(hits));
                 }
+
+                case UNDO -> {
+                    taskManager.undo();
+                    out.append(consoleLogger.displayList());
+                }
                 case BYE -> out.append(consoleLogger.PrintExit());
                 default -> throw new SiriException("Unknown command " + parser.getKeyword());
             }

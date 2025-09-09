@@ -1,5 +1,6 @@
 package Siri.Util;
 
+import Siri.Exception.SiriException;
 import Siri.Task.Task;
 
 import java.util.ArrayList;
@@ -73,6 +74,18 @@ public class TaskManager {
     public void deleteTask(int index) {
         assert index >= 0 && index < count : "Index out of bounds";
         list.remove(index);
+        count --;
+    }
+
+    /**
+     * Remove the most recent task in the list
+     * @throws SiriException throws an exception when the list is empty
+     */
+    public void undo() throws SiriException {
+        if (count == 0) {
+            throw new SiriException("There is no task in the list");
+        }
+        list.remove(count - 1);
         count --;
     }
 

@@ -10,6 +10,7 @@ public enum Command {
     LIST("list"),
     DELETE("delete"),
     FIND("find"),
+    UNDO("undo"),
     BYE("bye");
 
     private final String keyword;
