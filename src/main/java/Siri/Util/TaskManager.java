@@ -89,5 +89,14 @@ public class TaskManager {
         count --;
     }
 
+    public void undoTask(int index) throws SiriException {
+        if (index <= 0 || index > count) {
+            throw new SiriException("invalid index");
+        } else {
+            list.remove(index - 1);
+            count --;
+        }
+    }
+
 
 }

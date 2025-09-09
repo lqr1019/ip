@@ -206,7 +206,12 @@ public class Siri {
                 }
 
                 case UNDO -> {
-                    taskManager.undo();
+                    int index = parser.parseUndo();
+                    if (index == 0) {
+                        taskManager.undo();
+                    } else {
+                        taskManager.undoTask(index);
+                    }
                     out.append(consoleLogger.displayList());
                 }
                 case BYE -> out.append(consoleLogger.PrintExit());

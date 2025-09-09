@@ -200,4 +200,24 @@ public class Parser {
             return argument;
         }
     }
+
+    public int parseUndo() throws SiriException {
+        if (argument.isEmpty()) {
+            return 0;
+        } else if (isDigits(argument)) {
+            return Integer.parseInt(argument);
+        } else {
+            throw new SiriException("Invalid argument, argument should be a number");
+        }
+    }
+
+    public static boolean isDigits(String s) {
+        if (s == null || s.isEmpty()) return false;
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
