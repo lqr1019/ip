@@ -26,7 +26,6 @@ public class Siri {
         this.storage = new Storage(path);
         this.taskManager = new TaskManager();
         this.consoleLogger = new ConsoleLogger(taskManager);
-
     }
 
     /**
@@ -37,8 +36,6 @@ public class Siri {
         Siri siri = new Siri("./data/data.txt");
         //Generate from https://patorjk.com/software/taag/
         siri.run();
-
-
     }
 
     /**
@@ -213,10 +210,13 @@ public class Siri {
         } catch (SiriException e) {
             out.append(ConsoleLogger.printLine("Error: " + e.getMessage()));
         }
-
         return out.toString();
     }
 
+    /**
+     * Get the welcome String with logo
+     * @return String of welcome word and logo
+     */
     public String getWelcome() {
         String siriLogo = "   _____ _      _ \n" +
                 "  / ____(_)    (_)\n" +
@@ -229,8 +229,4 @@ public class Siri {
 
         return "Hello from\n" + siriLogo;
     }
-
-
-
-
 }

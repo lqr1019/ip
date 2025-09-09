@@ -5,25 +5,31 @@ import Siri.Task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages the in-memory list of tasks.
+ * Provides operations to add, remove, retrieve, and update tasks.
+ */
 public class TaskManager {
     private List<Task> list;
     private int count;
 
+    /**
+     * Construct an empty TaskManager
+     */
     public TaskManager() {
         list = new ArrayList<>();
         count = 0;
     }
 
+    /**
+     * Find tasks with the given description
+     * @param description description of the task
+     * @return A list of matching tasks
+     */
     public List<Task> findTask(String description) {
-        List<Task> res = new ArrayList<>();
-        for (Task task : list) {
-            String des = task.getDescription();
-            if (des.contains(description)) {
-                res.add(task);
-            }
-        }
-        return res;
-
+        return list.stream()
+                .filter(t -> t.getDescription().toLowerCase().contains(description.toLowerCase()))
+                .toList();
     }
 
     /**
@@ -58,7 +64,6 @@ public class TaskManager {
      */
     public void updateTask(int index, Boolean status) {
         list.get(index).setDone(status);
-
     }
 
     /**
@@ -66,6 +71,7 @@ public class TaskManager {
      * @param index the index of the task
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < count : "Index out of bounds";
         list.remove(index);
         count --;
     }
