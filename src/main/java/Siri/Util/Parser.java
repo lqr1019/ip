@@ -53,6 +53,7 @@ public class Parser {
      * @throws SiriException if the argument is empty, throw an exception
      */
     public String parseTodo() throws SiriException {
+        assert !argument.isEmpty() : "Argument is empty";
         if (argument.isEmpty()) {
             throw new SiriException("Todo task description is empty", "todo <description>", argument);
         } else {
@@ -148,6 +149,7 @@ public class Parser {
         if (argument == null) argument = "";
         String arg = argument.trim();
         int byIdx = arg.toLowerCase().indexOf(MARKER);
+        assert byIdx >= 0 : "Missing byIndex";
         if (byIdx < 0) {
             throw new SiriException(
                     "Missing '/by' marker for deadline task",
@@ -177,6 +179,8 @@ public class Parser {
         if (argument == null) argument = "";
         int firstSlashIndex = argument.indexOf('/');
         int secondSlashIndex = argument.indexOf('/', firstSlashIndex + 1);
+        assert firstSlashIndex >= 0 : "Missing firstSlashIndex";
+        assert secondSlashIndex >= 0 : "Missing secondSlashIndex";
         if (firstSlashIndex < 0 || secondSlashIndex < 0) {
             throw new SiriException("Missing '/' separator for event task", "event <description> / <start> / <end>", argument);
         }

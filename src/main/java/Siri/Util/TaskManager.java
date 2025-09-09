@@ -66,6 +66,7 @@ public class TaskManager {
      * @param index the index of the task
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < count : "Index out of bounds";
         list.remove(index);
         count --;
     }

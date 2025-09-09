@@ -32,6 +32,7 @@ public class Storage {
         if (!Files.exists(this.filePath)) {
             Files.createFile(filePath);
         }
+        assert parentPath != null : "ParentPath of the file is null";
     }
 
     /**
@@ -81,6 +82,7 @@ public class Storage {
      */
     public String format(Task t) {
         String done = t.isDone() ? "1" : "0";
+        assert done.equals("1") || done.equals("0") : "invalid done status";
         if (t instanceof ToDoTask) {
             return "T | " + done + " | " + t.getDescription();
         } else if (t instanceof DeadlineTask) {
@@ -104,8 +106,10 @@ public class Storage {
         if (p.length < 3) return null;
 
         String type = p[0].trim();
+        assert type != null : "Invalid type";
         boolean done = p[1].trim().equals("1");
         String desc = p[2].trim();
+        assert desc != null && !desc.isBlank() : "Invalid desc";
 
         switch (type) {
             case "T": {
