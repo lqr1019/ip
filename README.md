@@ -26,27 +26,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 
-# User Guide
 
-## Introduction
-Siri is a simple **task management chatbot**. It lets you add, list, mark, unmark, delete, search, and undo tasks through text commands.
-
----
-
-## Commands
-
-| Command | Format | Example |
-|---------|--------|---------|
-| **List tasks** | `list` | `list` |
-| **Add Todo** | `todo <description>` | `todo read book` |
-| **Add Deadline** | `deadline <description> /by <date>` | `deadline return book /by 2025-10-10` |
-| **Add Event** | `event <description> /from <start> /to <end>` | `event meeting /from 14:00 /to 16:00` |
-| **Mark done** | `mark <task number>` | `mark 2` |
-| **Unmark** | `unmark <task number>` | `unmark 2` |
-| **Delete** | `delete <task number>` | `delete 1` |
-| **Find** | `find <keyword>` | `find book` |
-| **Undo** | `undo` or `undo <task number>` | `undo` |
-| **Exit** | `bye` | `bye` |
 
 
 
