@@ -28,7 +28,7 @@ public enum Command {
     }
 
     /**
-     * get command from the keyword input
+     * Get command from the keyword input
      * @param keyword keyword that the user input
      * @return the command associated with the keyword
      */

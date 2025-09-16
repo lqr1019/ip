@@ -29,29 +29,20 @@ public class Siri {
     }
 
     /**
-     * Starting function of the app
+     * The starting function of the app
      * @param args
      */
     public static void main(String[] args) {
         Siri siri = new Siri("./data/data.txt");
         //Generate from https://patorjk.com/software/taag/
+        System.out.print(siri.getWelcome());
         siri.run();
     }
 
     /**
-     * Run the CLI
+     * Method to run the CLI
      */
     public void run() {
-        String siriLogo = "   _____ _      _ \n" +
-                "  / ____(_)    (_)\n" +
-                " | (___  _ _ __ _ \n" +
-                "  \\___ \\| | '__| |\n" +
-                "  ____) | | |  | |\n" +
-                " |_____/|_|_|  |_|\n" +
-                "                  \n" +
-                "                  ";
-
-        System.out.print("Hello from\n" + siriLogo);
         Scanner sc = new Scanner(System.in);
         System.out.print("\n____________________________________________________________\n");
         consoleLogger.PrintGreet();
@@ -145,83 +136,219 @@ public class Siri {
     }
 
     /**
-     * Gets the response string output by the console for GUI
-     * @param input input String
-     * @return the response string of input
+     * Handles user input, parses it into a command, dispatches to the appropriate handler,
+     * and returns the formatted response. Persists task changes for mutating commands.
+     *
+     * @param input the raw user input string (may be null or contain leading/trailing spaces)
+     * @return the formatted response string to display
      */
     public String getResponse(String input) {
-        String trimmed = (input == null) ? "" : input.trim();
-        if (trimmed.isEmpty()) return "";
-
-        StringBuilder out = new StringBuilder();
-        Parser parser = new Parser(trimmed);
-        Command cmd = parser.getCommand();
-
         try {
-            if (cmd == null) {
-                throw new SiriException("Unknown command " + parser.getKeyword());
-            }
+            String trimmed = normalize(input);
+            if (trimmed.isEmpty()) return "";
 
-            switch (cmd) {
-                case LIST -> out.append(consoleLogger.displayList());
-                case TODO -> {
-                    String desc = parser.parseTodo();
-                    ToDoTask todo = new ToDoTask(desc);
-                    taskManager.addTask(todo);
-                    out.append(consoleLogger.displayTask(todo));
-                }
-                case DEADLINE -> {
-                    String[] p = parser.parseDeadline();
-                    DeadlineTask d = new DeadlineTask(p[0], p[1]);
-                    taskManager.addTask(d);
-                    out.append(consoleLogger.displayTask(d));
-                    storage.save(taskManager.getTasks());
-                }
-                case EVENT -> {
-                    String[] p = parser.parseEvent();
-                    EventTask e = new EventTask(p[0], p[1], p[2]);
-                    taskManager.addTask(e);
-                    out.append(consoleLogger.displayTask(e));
-                    storage.save(taskManager.getTasks());
-                }
-                case MARK -> {
-                    int idx = parser.parseMark();
-                    out.append(consoleLogger.mark(idx));
-                    storage.save(taskManager.getTasks());
-                }
-                case UNMARK -> {
-                    int idx = parser.parseUnMark();
-                    out.append(consoleLogger.unmark(idx));
-                    storage.save(taskManager.getTasks());
-                }
-                case DELETE -> {
-                    int idx = parser.parseDelete();
-                    out.append(consoleLogger.delete(idx));
-                    storage.save(taskManager.getTasks());
-                }
-                case FIND -> {
-                    String kw = parser.parseFind();
-                    List<Task> hits = taskManager.findTask(kw);
-                    out.append(consoleLogger.displayFind(hits));
-                }
+            Parser parser = new Parser(trimmed);
+            Command cmd = requireCommand(parser);
 
-                case UNDO -> {
-                    int index = parser.parseUndo();
-                    if (index == 0) {
-                        taskManager.undo();
-                    } else {
-                        taskManager.undoTask(index);
-                    }
-                    out.append(consoleLogger.displayList());
-                }
-                case BYE -> out.append(consoleLogger.PrintExit());
-                default -> throw new SiriException("Unknown command " + parser.getKeyword());
+            String message = dispatch(cmd, parser);
+
+            if (isMutating(cmd)) {
+                storage.save(taskManager.getTasks());
             }
+            return message;
+
         } catch (SiriException e) {
-            out.append(ConsoleLogger.printLine("Error: " + e.getMessage()));
+            return ConsoleLogger.printLine("Error: " + e.getMessage()).toString();
         }
-        return out.toString();
     }
+
+    /**
+     * Normalizes raw user input by trimming whitespace and replacing null with an empty string.
+     *
+     * @param input the raw user input (may be null)
+     * @return a trimmed non-null string (empty if input was null or only whitespace)
+     */
+    private String normalize(String input) {
+        return (input == null) ? "" : input.trim();
+    }
+
+    /**
+     * Ensures a valid command is extracted from the parser.
+     *
+     * @param parser the parser initialized with user input
+     * @return the parsed Command
+     * @throws SiriException if no valid command could be identified
+     */
+    private Command requireCommand(Parser parser) throws SiriException {
+        Command cmd = parser.getCommand();
+        if (cmd == null) throw new SiriException("Unknown command " + parser.getKeyword());
+        return cmd;
+    }
+
+    /**
+     * Dispatches a command to its corresponding handler method.
+     *
+     * @param cmd    the parsed command
+     * @param parser the parser containing user input
+     * @return the response string generated by the handler
+     * @throws SiriException if the command is unknown or input parsing fails
+     */
+    private String dispatch(Command cmd, Parser parser) throws SiriException {
+        // One line per command; each calls a small, focused handler.
+        return switch (cmd) {
+            case LIST    -> handleList();
+            case TODO    -> handleTodo(parser);
+            case DEADLINE-> handleDeadline(parser);
+            case EVENT   -> handleEvent(parser);
+            case MARK    -> handleMark(parser);
+            case UNMARK  -> handleUnmark(parser);
+            case DELETE  -> handleDelete(parser);
+            case FIND    -> handleFind(parser);
+            case UNDO    -> handleUndo(parser);
+            case BYE     -> handleBye();
+            default      -> throw new SiriException("Unknown command " + parser.getKeyword());
+        };
+    }
+
+    /**
+     * Determines whether a command modifies persistent state and therefore
+     * requires saving tasks to storage.
+     *
+     * @param cmd the command to check
+     * @return true if the command mutates the task list, false otherwise
+     */
+    private boolean isMutating(Command cmd) {
+        return switch (cmd) {
+            case TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNDO -> true;
+            default -> false;
+        };
+    }
+
+    /* ===================== Command Handlers (single-purpose) ===================== */
+
+    /**
+     * Handles the LIST command.
+     *
+     * @return the formatted list of all tasks
+     */
+    private String handleList() {
+        return consoleLogger.displayList().toString();
+    }
+
+    /**
+     * Handles the TODO command.
+     *
+     * @param parser the parser used to extract task description
+     * @return the formatted response for adding a ToDoTask
+     * @throws SiriException if parsing fails
+     */
+    private String handleTodo(Parser parser) throws SiriException {
+        String desc = parser.parseTodo();
+        ToDoTask todo = new ToDoTask(desc);
+        taskManager.addTask(todo);
+        return consoleLogger.displayTask(todo).toString();
+    }
+
+    /**
+     * Handles the DEADLINE command.
+     *
+     * @param parser the parser used to extract description and deadline
+     * @return the formatted response for adding a DeadlineTask
+     * @throws SiriException if parsing fails
+     */
+    private String handleDeadline(Parser parser) throws SiriException {
+        String[] p = parser.parseDeadline(); // [desc, by]
+        DeadlineTask d = new DeadlineTask(p[0], p[1]);
+        taskManager.addTask(d);
+        return consoleLogger.displayTask(d).toString();
+    }
+
+    /**
+     * Handles the EVENT command.
+     *
+     * @param parser the parser used to extract description, start, and end time
+     * @return the formatted response for adding an EventTask
+     * @throws SiriException if parsing fails
+     */
+    private String handleEvent(Parser parser) throws SiriException {
+        String[] p = parser.parseEvent(); // [desc, from, to]
+        EventTask e = new EventTask(p[0], p[1], p[2]);
+        taskManager.addTask(e);
+        return consoleLogger.displayTask(e).toString();
+    }
+
+    /**
+     * Handles the MARK command.
+     *
+     * @param parser the parser used to extract task index
+     * @return the formatted response for marking the task as done
+     * @throws SiriException if parsing fails or index is invalid
+     */
+    private String handleMark(Parser parser) throws SiriException {
+        int idx = parser.parseMark();
+        return consoleLogger.mark(idx).toString();
+    }
+
+    /**
+     * Handles the UNMARK command.
+     *
+     * @param parser the parser used to extract task index
+     * @return the formatted response for unmarking the task
+     * @throws SiriException if parsing fails or index is invalid
+     */
+    private String handleUnmark(Parser parser) throws SiriException {
+        int idx = parser.parseUnMark();
+        return consoleLogger.unmark(idx).toString();
+    }
+
+    /**
+     * Handles the DELETE command.
+     *
+     * @param parser the parser used to extract task index
+     * @return the formatted response for deleting the task
+     * @throws SiriException if parsing fails or index is invalid
+     */
+    private String handleDelete(Parser parser) throws SiriException {
+        int idx = parser.parseDelete();
+        return consoleLogger.delete(idx).toString();
+    }
+
+    /**
+     * Handles the FIND command.
+     *
+     * @param parser the parser used to extract search keyword
+     * @return the formatted response listing matching tasks
+     * @throws SiriException if parsing fails
+     */
+    private String handleFind(Parser parser) throws SiriException {
+        String kw = parser.parseFind();
+        List<Task> hits = taskManager.findTask(kw);
+        return consoleLogger.displayFind(hits).toString();
+    }
+
+    /**
+     * Handles the UNDO command.
+     *
+     * @param parser the parser used to extract undo index
+     * @return the formatted response showing updated task list
+     * @throws SiriException if parsing fails or undo fails
+     */
+    private String handleUndo(Parser parser) throws SiriException {
+        int index = parser.parseUndo();
+        if (index == 0) taskManager.undo();
+        else taskManager.undoTask(index);
+        return consoleLogger.displayList().toString();
+    }
+
+    /**
+     * Handles the BYE command.
+     *
+     * @return the exit message string
+     */
+    private String handleBye() {
+        return consoleLogger.PrintExit().toString();
+    }
+
 
     /**
      * Get the welcome String with logo
