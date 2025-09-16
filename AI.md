@@ -2,7 +2,7 @@
 
 # Tools:ChatGPTo5
 
-# Methods that are written by AI:
+# Methods and files that are written by AI:
 
 normalize(String input)
 
@@ -31,3 +31,5 @@ handleFind(Parser parser)
 handleUndo(Parser parser)
 
 handleBye()
+
+README.md
