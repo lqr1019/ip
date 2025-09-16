@@ -1,10 +1,12 @@
 package siri.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import siri.exception.SiriException;
 import siri.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Manages the in-memory list of tasks.

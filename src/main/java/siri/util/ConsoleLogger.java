@@ -1,10 +1,14 @@
 package siri.util;
 
+import java.util.List;
+
 import siri.exception.SiriException;
 import siri.task.Task;
 
-import java.util.List;
 
+/**
+ * ConsoleLogger class
+ */
 public class ConsoleLogger {
     private TaskManager taskManager;
 
@@ -13,7 +17,7 @@ public class ConsoleLogger {
     }
 
     /**
-     Prints a greeting message from siri.siri to the console.
+     *Prints a greeting message from siri.siri to the console.
      */
     public StringBuilder PrintGreet() {
         StringBuilder res = new StringBuilder(" Hello! I'm siri.siri\n" + " What can I do for you?\n");
@@ -22,7 +26,7 @@ public class ConsoleLogger {
     }
 
     /**
-     Prints an exit message from siri.siri to the console.
+     *Prints an exit message from siri.siri to the console.
      */
     public StringBuilder PrintExit() {
         StringBuilder res = new StringBuilder(" Bye. Hope to see you again soon!\n");
@@ -42,12 +46,12 @@ public class ConsoleLogger {
     }
 
     /**
-     *  Prints every task stored in the taskManger
+     * Prints every task stored in the taskManger
      */
     public StringBuilder displayList() {
         StringBuilder res = new StringBuilder();
         res.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < this.taskManager.getCount(); i ++) {
+        for (int i = 0; i < this.taskManager.getCount(); i++) {
             res.append(i + 1).append(". ").append(taskManager.getTasks().get(i).display()).append("\n");
         }
         System.out.print(res);
@@ -149,14 +153,18 @@ public class ConsoleLogger {
         return res;
     }
 
-
+    /**
+     * display the tasks find
+     * @param list tasklist
+     * @return tasks find
+     */
     public StringBuilder displayFind(List<Task> list) {
         if (list.isEmpty()) {
             System.out.print("Can not find matching tasks");
         }
         StringBuilder res = new StringBuilder();
         res.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < list.size(); i ++) {
+        for (int i = 0; i < list.size(); i++) {
             res.append(i + 1).append(". ").append(list.get(i).display()).append("\n");
         }
         System.out.print(res);

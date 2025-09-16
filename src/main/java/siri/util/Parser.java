@@ -147,12 +147,12 @@ public class Parser {
      * @throws SiriException if the argument is invalid, throw an exception
      */
     public String[] parseDeadline() throws SiriException {
-        final String Marker = "/by";
+        final String marker = "/by";
         if (argument == null) {
             argument = "";
         }
         String arg = argument.trim();
-        int byIdx = arg.toLowerCase().indexOf(Marker);
+        int byIdx = arg.toLowerCase().indexOf(marker);
         assert byIdx >= 0 : "Missing byIndex";
         if (byIdx < 0) {
             throw new SiriException(
@@ -162,7 +162,7 @@ public class Parser {
             );
         }
         description = arg.substring(0, byIdx).trim();
-        deadline = arg.substring(byIdx + Marker.length()).trim();
+        deadline = arg.substring(byIdx + marker.length()).trim();
 
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new SiriException(

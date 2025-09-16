@@ -1,6 +1,5 @@
 package siri.javafx;
 
-import siri.Siri;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -8,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import siri.Siri;
 
 /**
  * A GUI for Duke using FXML.
