@@ -1,4 +1,4 @@
-package Siri.Task;
+package siri.task;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

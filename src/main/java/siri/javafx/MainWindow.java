@@ -1,8 +1,6 @@
-package Siri.JavaFx;
+package siri.javafx;
 
-import Siri.Util.ConsoleLogger;
-import Siri.Util.Parser;
-import Siri.Util.TaskManager;
+import siri.util.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,8 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import Siri.Siri;
-import Siri.Command;
+import siri.Siri;
+
 /**
  * Controller for the main GUI.
  */
@@ -36,7 +34,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Siri instance */
+    /** Injects the siri instance */
     public void setSiri(Siri s) {
         siri = s;
     }

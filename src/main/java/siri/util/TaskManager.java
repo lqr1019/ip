@@ -1,7 +1,7 @@
-package Siri.Util;
+package siri.util;
 
-import Siri.Exception.SiriException;
-import Siri.Task.Task;
+import siri.exception.SiriException;
+import siri.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class TaskManager {
     }
 
     /**
-     *
+     * Gets task list
      * @return task list
      */
     public List<Task> getTasks() {
@@ -42,7 +42,7 @@ public class TaskManager {
     }
 
     /**
-     *
+     * Gets total number of tasks
      * @return total number of tasks
      */
     public int getCount() {
@@ -55,7 +55,7 @@ public class TaskManager {
      */
     public void addTask(Task task) {
         list.add(count, task);
-        count ++;
+        count++;
     }
 
     /**
@@ -74,7 +74,7 @@ public class TaskManager {
     public void deleteTask(int index) {
         assert index >= 0 && index < count : "Index out of bounds";
         list.remove(index);
-        count --;
+        count--;
     }
 
     /**
@@ -86,15 +86,20 @@ public class TaskManager {
             throw new SiriException("There is no task in the list");
         }
         list.remove(count - 1);
-        count --;
+        count--;
     }
 
+    /**
+     * Undo the task with the index
+     * @param index index of the task in the task list
+     * @throws SiriException throws an exception when the index is out of bound
+     */
     public void undoTask(int index) throws SiriException {
         if (index <= 0 || index > count) {
             throw new SiriException("invalid index");
         } else {
             list.remove(index - 1);
-            count --;
+            count--;
         }
     }
 

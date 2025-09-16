@@ -1,9 +1,9 @@
-package Siri.Exception;
+package siri.exception;
 
 public class SiriException extends RuntimeException {
 
     /**
-     * Constructs a new Siri.Siri.Exception.SiriException with a detail message.
+     * Constructs a new siri.siri.exception.SiriException with a detail message.
      *
      * @param message the error detail message
      */
@@ -12,7 +12,7 @@ public class SiriException extends RuntimeException {
     }
 
     /**
-     * Constructs a new Siri.Siri.Exception.SiriException with a detail message
+     * Constructs a new siri.siri.exception.SiriException with a detail message
      * that includes the invalid input that caused the error.
      *
      * @param message the error detail message

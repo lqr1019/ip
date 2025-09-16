@@ -1,6 +1,6 @@
-package Siri.JavaFx;
+package siri.javafx;
 
-import Siri.Siri;
+import siri.Siri;
 import java.io.IOException;
 
 import javafx.application.Application;

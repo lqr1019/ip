@@ -8,7 +8,7 @@ Hello from
 
 
 ____________________________________________________________
- Hello! I'm Siri.Siri
+ Hello! I'm siri.siri
  What can I do for you?
 ____________________________________________________________
 read book

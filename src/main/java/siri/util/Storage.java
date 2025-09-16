@@ -1,9 +1,9 @@
-package Siri.Util;
+package siri.util;
 
-import Siri.Task.Task;
-import Siri.Task.DeadlineTask;
-import Siri.Task.EventTask;
-import Siri.Task.ToDoTask;
+import siri.task.Task;
+import siri.task.DeadlineTask;
+import siri.task.EventTask;
+import siri.task.ToDoTask;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

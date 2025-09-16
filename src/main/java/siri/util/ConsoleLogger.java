@@ -1,7 +1,7 @@
-package Siri.Util;
+package siri.util;
 
-import Siri.Exception.SiriException;
-import Siri.Task.Task;
+import siri.exception.SiriException;
+import siri.task.Task;
 
 import java.util.List;
 
@@ -13,16 +13,16 @@ public class ConsoleLogger {
     }
 
     /**
-     Prints a greeting message from Siri.Siri to the console.
+     Prints a greeting message from siri.siri to the console.
      */
     public StringBuilder PrintGreet() {
-        StringBuilder res = new StringBuilder(" Hello! I'm Siri.Siri\n" + " What can I do for you?\n");
+        StringBuilder res = new StringBuilder(" Hello! I'm siri.siri\n" + " What can I do for you?\n");
         System.out.print(res);
         return res;
     }
 
     /**
-     Prints an exit message from Siri.Siri to the console.
+     Prints an exit message from siri.siri to the console.
      */
     public StringBuilder PrintExit() {
         StringBuilder res = new StringBuilder(" Bye. Hope to see you again soon!\n");
@@ -36,7 +36,7 @@ public class ConsoleLogger {
      * @param word the input string to be echoed
      */
     public String Echo(String word) {
-        String res = "Siri heard: " + word + "\n";
+        String res = "siri heard: " + word + "\n";
         System.out.print(res);
         return res;
     }
@@ -61,7 +61,7 @@ public class ConsoleLogger {
      */
     public StringBuilder mark(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Siri.Task.Task does not exist");
+            throw new SiriException("siri.task.task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(true);
@@ -79,7 +79,7 @@ public class ConsoleLogger {
      */
     public StringBuilder unmark(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Siri.Task.Task does not exist");
+            throw new SiriException("siri.task.task does not exist");
         }
         Task t = taskManager.getTasks().get(index - 1);
         t.setDone(false);
@@ -138,7 +138,7 @@ public class ConsoleLogger {
      */
     public StringBuilder delete(int index) {
         if (index > taskManager.getCount()) {
-            throw new SiriException("Siri.Task.Task does not exist");
+            throw new SiriException("siri.task.task does not exist");
         }
         StringBuilder res = new StringBuilder();
         res.append("Noted. I've removed this task:\n");

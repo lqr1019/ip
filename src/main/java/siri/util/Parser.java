@@ -1,8 +1,10 @@
-package Siri.Util;
+package siri.util;
+import siri.Command;
+import siri.exception.SiriException;
 
-import Siri.Command;
-import Siri.Exception.SiriException;
-
+/**
+ * Parser to parse the input
+ */
 public class Parser {
     private Command command;
     private String description;
@@ -79,7 +81,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Siri.Task.Task number must be an integer",
+                    "siri.task.task number must be an integer",
                     "mark <number>",
                     argument
             );
@@ -105,7 +107,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Siri.Task.Task number must be an integer",
+                    "siri.task.task number must be an integer",
                     "unmark <number>",
                     argument
             );
@@ -131,7 +133,7 @@ public class Parser {
             n = Integer.parseInt(argument);
         } catch (NumberFormatException ex) {
             throw new SiriException(
-                    "Siri.Task.Task number must be an integer",
+                    "siri.task.task number must be an integer",
                     "delete <number>",
                     argument
             );
@@ -145,10 +147,12 @@ public class Parser {
      * @throws SiriException if the argument is invalid, throw an exception
      */
     public String[] parseDeadline() throws SiriException {
-        final String MARKER = "/by";
-        if (argument == null) argument = "";
+        final String Marker = "/by";
+        if (argument == null) {
+            argument = "";
+        }
         String arg = argument.trim();
-        int byIdx = arg.toLowerCase().indexOf(MARKER);
+        int byIdx = arg.toLowerCase().indexOf(Marker);
         assert byIdx >= 0 : "Missing byIndex";
         if (byIdx < 0) {
             throw new SiriException(
@@ -158,7 +162,7 @@ public class Parser {
             );
         }
         description = arg.substring(0, byIdx).trim();
-        deadline   = arg.substring(byIdx + MARKER.length()).trim();
+        deadline = arg.substring(byIdx + Marker.length()).trim();
 
         if (description.isEmpty() || deadline.isEmpty()) {
             throw new SiriException(
@@ -172,28 +176,38 @@ public class Parser {
 
     /**
      * Parsing EventTask
-     * @return a String array where the first element is the description, the second is the starting time, the third is the ending time
+     * @return a String array where the first element is the description,
+     *          the second is the starting time, the third is the ending time
      * @throws SiriException if the argument is invalid, throw an exception
      */
     public String[] parseEvent() throws SiriException {
-        if (argument == null) argument = "";
+        if (argument == null) {
+            argument = "";
+        }
         int firstSlashIndex = argument.indexOf('/');
         int secondSlashIndex = argument.indexOf('/', firstSlashIndex + 1);
         assert firstSlashIndex >= 0 : "Missing firstSlashIndex";
         assert secondSlashIndex >= 0 : "Missing secondSlashIndex";
         if (firstSlashIndex < 0 || secondSlashIndex < 0) {
-            throw new SiriException("Missing '/' separator for event task", "event <description> / <start> / <end>", argument);
+            throw new SiriException("Missing '/' separator for event task",
+                    "event <description> / <start> / <end>", argument);
         }
         description = argument.substring(0, firstSlashIndex);
         from = argument.substring(firstSlashIndex + 1, secondSlashIndex);
         to = argument.substring(secondSlashIndex + 1);
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new SiriException("Event description, start, or end is empty", "event <description> / <start> / <end>", argument);
+            throw new SiriException("Event description, start, or end is empty",
+                    "event <description> / <start> / <end>", argument);
         }
         return new String[] {description, from, to};
     }
 
-    public String parseFind() throws SiriException{
+    /**
+     * Parse the find command
+     * @return the argument find
+     * @throws SiriException throws an exception when the keyword is empty
+     */
+    public String parseFind() throws SiriException {
         if (argument.isEmpty()) {
             throw new SiriException("Missing keyword");
         } else {
@@ -201,6 +215,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse the UndoTask
+     * @return the index of the task
+     * @throws SiriException throws exception when the argument is invalid
+     */
     public int parseUndo() throws SiriException {
         if (argument.isEmpty()) {
             return 0;
@@ -211,8 +230,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Check whether the input String is a digit
+     * @param s input String
+     * @return whether the input String is a digit
+     */
     public static boolean isDigits(String s) {
-        if (s == null || s.isEmpty()) return false;
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
         try {
             Integer.parseInt(s);
             return true;

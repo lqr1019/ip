@@ -1,4 +1,4 @@
-package Siri.JavaFx;
+package siri.javafx;
 
 import javafx.application.Application;
 

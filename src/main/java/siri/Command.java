@@ -1,4 +1,4 @@
-package Siri;
+package siri;
 
 public enum Command {
     ECHO("echo"),

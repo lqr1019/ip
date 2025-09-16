@@ -1,4 +1,4 @@
-package Siri.Task;
+package siri.task;
 
 public class EventTask extends Task {
     private String from;

@@ -1,20 +1,20 @@
-package Siri;
+package siri;
 
-import Siri.Exception.SiriException;
-import Siri.Task.DeadlineTask;
-import Siri.Task.EventTask;
-import Siri.Task.Task;
-import Siri.Task.ToDoTask;
-import Siri.Util.ConsoleLogger;
-import Siri.Util.Parser;
-import Siri.Util.Storage;
-import Siri.Util.TaskManager;
+import siri.exception.SiriException;
+import siri.task.DeadlineTask;
+import siri.task.EventTask;
+import siri.task.Task;
+import siri.task.ToDoTask;
+import siri.util.ConsoleLogger;
+import siri.util.Parser;
+import siri.util.Storage;
+import siri.util.TaskManager;
 
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * Main class for Siri
+ * Main class for siri
  */
 public class Siri {
     private final Storage storage;
