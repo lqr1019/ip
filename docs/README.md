@@ -2,7 +2,7 @@
 
 
 
-![Siri Product Screenshot](docs/Ui.png)
+![Siri Product Screenshot](Ui.png)
 
 Siri is a simple chatbot that helps you **manage tasks** via text commands.
 ## Adding deadlines
