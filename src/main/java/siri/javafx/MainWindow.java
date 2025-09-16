@@ -33,26 +33,27 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the siri instance */
     public void setSiri(Siri s) {
         siri = s;
+        String welcome = siri.getWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSiriDialog(welcome, dukeImage)
+        );
     }
 
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Soro's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Siri's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String welcome = siri.getWelcome();
         String response = siri.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getSiriDialog(welcome, dukeImage)
-        );
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSiriDialog(response, dukeImage)

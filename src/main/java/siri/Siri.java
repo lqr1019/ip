@@ -181,7 +181,9 @@ public class Siri {
      */
     private Command requireCommand(Parser parser) throws SiriException {
         Command cmd = parser.getCommand();
-        if (cmd == null) throw new SiriException("Unknown command " + parser.getKeyword());
+        if (cmd == null) {
+            throw new SiriException("Unknown command " + parser.getKeyword());
+        }
         return cmd;
     }
 

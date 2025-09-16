@@ -153,7 +153,6 @@ public class Parser {
         }
         String arg = argument.trim();
         int byIdx = arg.toLowerCase().indexOf(marker);
-        assert byIdx >= 0 : "Missing byIndex";
         if (byIdx < 0) {
             throw new SiriException(
                     "Missing '/by' marker for deadline task",
