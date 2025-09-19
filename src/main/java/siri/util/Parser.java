@@ -79,6 +79,9 @@ public class Parser {
         int n;
         try {
             n = Integer.parseInt(argument);
+            if (n <= 0) {
+                throw new SiriException("index should be greater than 0");
+            }
         } catch (NumberFormatException ex) {
             throw new SiriException(
                     "siri.task.task number must be an integer",
@@ -105,6 +108,9 @@ public class Parser {
         int n;
         try {
             n = Integer.parseInt(argument);
+            if (n <= 0) {
+                throw new SiriException("index should be greater than 0");
+            }
         } catch (NumberFormatException ex) {
             throw new SiriException(
                     "siri.task.task number must be an integer",
@@ -131,6 +137,9 @@ public class Parser {
         int n;
         try {
             n = Integer.parseInt(argument);
+            if (n <= 0) {
+                throw new SiriException("index should be greater than 0");
+            }
         } catch (NumberFormatException ex) {
             throw new SiriException(
                     "siri.task.task number must be an integer",
