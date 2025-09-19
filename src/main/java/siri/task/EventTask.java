@@ -63,9 +63,9 @@ public class EventTask extends Task {
             toDay = to;
         }
         if (super.isDone()) {
-            return "[E][X] " + super.getDescription() + " (from: " + fromDay + "to: " + toDay +")";
+            return "[E][X] " + super.getDescription() + " (from: " + fromDay + " to: " + toDay +")";
         } else {
-            return "[E][ ] " + super.getDescription() + " (from: " + fromDay + "to: " + toDay +")";
+            return "[E][ ] " + super.getDescription() + " (from: " + fromDay + " to: " + toDay +")";
         }
     }
 
