@@ -21,7 +21,6 @@ public class DeadlineTask extends Task {
         try {
             parsed = LocalDate.parse(deadline);
         } catch (Exception e) {
-
         }
         this.dateTime = parsed;
     }

@@ -189,23 +189,25 @@ public class Parser {
      * @throws SiriException if the argument is invalid, throw an exception
      */
     public String[] parseEvent() throws SiriException {
+        final String fromMarker = "/from";
+        final String toMarker = "/to";
         if (argument == null) {
             argument = "";
         }
-        int firstSlashIndex = argument.indexOf('/');
-        int secondSlashIndex = argument.indexOf('/', firstSlashIndex + 1);
-        assert firstSlashIndex >= 0 : "Missing firstSlashIndex";
-        assert secondSlashIndex >= 0 : "Missing secondSlashIndex";
-        if (firstSlashIndex < 0 || secondSlashIndex < 0) {
-            throw new SiriException("Missing '/' separator for event task",
-                    "event <description> / <start> / <end>", argument);
+        int fromIndex = argument.indexOf(fromMarker);
+        int toIndex = argument.indexOf(toMarker);
+        if (fromIndex < 0) {
+            throw new SiriException("Missing '/from' separator for event task");
         }
-        description = argument.substring(0, firstSlashIndex);
-        from = argument.substring(firstSlashIndex + 1, secondSlashIndex);
-        to = argument.substring(secondSlashIndex + 1);
+        if (toIndex < 0) {
+            throw new SiriException("Missing '/to' separator for event task");
+        }
+        description = argument.substring(0, fromIndex).trim();
+        from = argument.substring(fromIndex + fromMarker.length(), toIndex).trim();
+        to = argument.substring(toIndex + toMarker.length()).trim();
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new SiriException("Event description, start, or end is empty",
-                    "event <description> / <start> / <end>", argument);
+                    "event <description> /from  <start> /to <end>", argument);
         }
         return new String[] {description, from, to};
     }

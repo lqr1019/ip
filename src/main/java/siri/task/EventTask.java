@@ -1,8 +1,14 @@
 package siri.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class EventTask extends Task {
     private String from;
     private String to;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
     /**
      * Constructor of EventTask
@@ -14,6 +20,19 @@ public class EventTask extends Task {
         super(description);
         this.from = from;
         this.to = to;
+
+        LocalDate parsed = null;
+        try {
+            parsed = LocalDate.parse(from);
+        } catch (Exception e) {
+        }
+        this.fromDate = parsed;
+        parsed = null;
+        try {
+            parsed = LocalDate.parse(to);
+        } catch (Exception e) {
+        }
+        this.toDate = parsed;
     }
 
     /**
@@ -29,10 +48,24 @@ public class EventTask extends Task {
      */
     @Override
     public String display() {
-        if (super.isDone()) {
-            return "[E][X] " + super.getDescription() + " (" + from + to +")";
+        String fromDay;
+        String toDay;
+        if (fromDate != null) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+            fromDay = fromDate.format(dateTimeFormatter);
         } else {
-            return "[E][ ] " + super.getDescription() + " (" + from + to +")";
+            fromDay = from;
+        }
+        if (toDate != null) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+            toDay = toDate.format(dateTimeFormatter);
+        } else {
+            toDay = to;
+        }
+        if (super.isDone()) {
+            return "[E][X] " + super.getDescription() + " (from: " + fromDay + "to: " + toDay +")";
+        } else {
+            return "[E][ ] " + super.getDescription() + " (from: " + fromDay + "to: " + toDay +")";
         }
     }
 
