@@ -1,7 +1,9 @@
 package siri.task;
 
+/**
+ * Class for TodoTask
+ */
 public class ToDoTask extends Task {
-
     /**
      * Constrcutor of todoTask
      * @param description description of task
