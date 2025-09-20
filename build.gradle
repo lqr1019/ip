@@ -56,6 +56,6 @@ run{
     enableAssertions = true
 }
 
-/*checkstyle {
+checkstyle {
     toolVersion = '11.0.0'
-}*/
+}
