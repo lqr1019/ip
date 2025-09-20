@@ -1,5 +1,8 @@
 package siri.task;
 
+/**
+ * Class for Task
+ */
 public class Task {
     private String description;
     private boolean isDone;
