@@ -54,11 +54,9 @@ public class Siri {
             }
             Parser parser = new Parser(input);
             String keyword = parser.getKeyword();
-            String argument = parser.getArgument();
             Command cmd = parser.getCommand();
             try{
                 if (cmd == null) {
-                    //unrecognised comment will throw an exception
                     throw new SiriException("Unknown command " + keyword);
                 }
 
