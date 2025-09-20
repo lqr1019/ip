@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Class for EventTask
+ */
 public class EventTask extends Task {
     private String from;
     private String to;
